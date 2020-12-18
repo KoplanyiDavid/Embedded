@@ -40,33 +40,33 @@ Shift:	mov R0, #0x10 ;futóváltozó Shift ciklusnak (16 bites bemenet->16x kell
 ;Megváltozott regiszterek: R0..5
 ShiftLoop:	clr C ;Carry-flag clear
 
-			mov A, R1 ;input alsó 8 bitjét betöltjük az akkumulátorba, hogy műveletet végezhessünk rajta
-			rlc A ;balra shifteljük Carry-flag állítással túlcsordulás esetén
-			mov R1, A ;az eltolt érték visszatöltése
+		mov A, R1 ;input alsó 8 bitjét betöltjük az akkumulátorba, hogy műveletet végezhessünk rajta
+		rlc A ;balra shifteljük Carry-flag állítással túlcsordulás esetén
+		mov R1, A ;az eltolt érték visszatöltése
 
-			; ugyanazok a lépések az input felső 8 bitjére
-			mov A, R2
-			rlc A
-			mov R2, A
+		; ugyanazok a lépések az input felső 8 bitjére
+		mov A, R2
+		rlc A
+		mov R2, A
 
-			;BCD digitek shiftelése ADDC-vel, hogy használhassuk a DA A utasítást BCD korrekcióra
-			mov A, R3
-			addc A, R3
-			da A
-			mov R3, A
+		;BCD digitek shiftelése ADDC-vel, hogy használhassuk a DA A utasítást BCD korrekcióra
+		mov A, R3
+		addc A, R3
+		da A
+		mov R3, A
 
-			mov A, R4
-			addc A, R4
-			da A
-			mov R4, A
+		mov A, R4
+		addc A, R4
+		da A
+		mov R4, A
 
-			mov A, R5
-			addc A, R5
-			da A
-			mov R5, A
+		mov A, R5
+		addc A, R5
+		da A
+		mov R5, A
 
-			;ha a futóváltozó értéke 0, akkor a szubrutin 16x lefutott, kiléphetünk belőle, R3,4,5 tartalmazza a szükséges kimeneteket
-			djnz R0, ShiftLoop
-			ret
+		;ha a futóváltozó értéke 0, akkor a szubrutin 16x lefutott, kiléphetünk belőle, R3,4,5 tartalmazza a szükséges kimeneteket
+		djnz R0, ShiftLoop
+		ret
 
 END
